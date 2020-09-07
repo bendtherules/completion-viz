@@ -1,12 +1,12 @@
 import { Node } from "acorn";
 import {
   Agent,
-  setSurroundingAgent,
-  ManagedRealm,
+  Realm,
+  Abstract,
   Value,
-  CreateDataProperty,
   inspect,
-} from "../../engine262/dist/engine262";
+  Completion
+} from "../engine262/dist/engine262";
 
 import { CompletionRecord } from "../types/engine262-stubs";
 import { completionMapping } from "./completionMapping";
@@ -16,14 +16,16 @@ export function runEngine(code: string) {
 
   const agent = new Agent({
     onNodeEvaluationComplete({
-      node,
-      result,
+      Production: node,
+      Result: result,
     }: {
-      node: Node;
-      result: CompletionRecord;
+      Production: Node;
+      Result: CompletionRecord;
     }) {
-      console.log({ node, result });
-      completionMapping.addCompletion({ node, result });
+      if (result instanceof Completion) {
+        console.log({ node, result });
+        completionMapping.addCompletion({ node, result });
+      }
     },
     // onDebugger() {},
     // ensureCanCompileStrings() {},
@@ -31,28 +33,17 @@ export function runEngine(code: string) {
     // onNodeEvaluation() {},
     // features: [],
   });
-  setSurroundingAgent(agent);
+  agent.enter();
 
-  const realm = new ManagedRealm({
-    // promiseRejectionTracker() {},
-    // resolveImportedModule() {},
-    // getImportMetaProperties() {},
-    // finalizeImportMeta() {},
-    // randomSeed() {},
+  const realm = new Realm({});
+
+  // Add print function from host
+  const print = new Value(realm, (args: any[]) => {
+    console.log(...args.map((tmp) => inspect(tmp)));
+    return (Value as any).undefined;
   });
+  Abstract.CreateDataProperty(realm.global, new Value(realm, "print"), print);
 
-  realm.scope(() => {
-    // Add print function from host
-
-    // @ts-ignore: new Value has type any
-    const print = new Value((args) => {
-      console.log(...args.map((tmp: any) => inspect(tmp)));
-      return (Value as any).undefined;
-    });
-
-    // @ts-ignore: new Value has type any
-    CreateDataProperty(realm.GlobalObject, new Value("print"), print);
-  });
-
+  /* Actual code here */
   realm.evaluateScript(code);
 }
