@@ -1,4 +1,4 @@
-import { Token } from "./prism-types";
+import { Token } from "../types/prism-types";
 
 interface TMappingELement {
   start: number;

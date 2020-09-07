@@ -1,7 +1,7 @@
 import React from "react";
 import Highlight, { defaultProps } from "prism-react-renderer";
 
-import { sourceMapping } from "./sourceMapping";
+import { sourceMapping } from "./logic/sourceMapping";
 
 import "./tailwind.output.css";
 

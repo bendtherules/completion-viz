@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { sourceMapping } from './sourceMapping';
+import { sourceMapping } from './logic/sourceMapping';
 
 ReactDOM.render(
   <React.StrictMode>
