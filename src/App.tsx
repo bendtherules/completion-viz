@@ -1,45 +1,26 @@
-import React from "react";
-import Highlight, { defaultProps } from "prism-react-renderer";
+import React, { useState, useLayoutEffect } from "react";
 
-import { sourceMapping } from "./logic/sourceMapping";
+import { SourceViewer } from "./components/SourceViewer";
+import { CompletionViewer } from "./components/CompletionViewer";
+import { completionMapping } from "./logic/completionMapping";
+import { runEngine } from "./logic/runEngine";
 
 import "./tailwind.output.css";
-
 import "./App.css";
 
-const exampleCode = `var test = \`asd
+const sampleInputCode = `var test = \`asd
 World!\`; abc()`;
 
 function App() {
+  const [inputCode, setInputCode] = useState<string>(sampleInputCode);
+
+  useLayoutEffect(() => {
+    runEngine(inputCode);
+  }, [inputCode]);
+
   return (
     <div>
-      <Highlight {...defaultProps} code={exampleCode} language="jsx">
-        {({ className, style, tokens, getLineProps, getTokenProps }) => (
-          sourceMapping.reset(),
-          (
-            <pre className={className} style={style}>
-              {tokens.map((line, i) => (
-                <div
-                  data-line={JSON.stringify(line)}
-                  {...getLineProps({ line, key: i })}
-                >
-                  {line.map(function (token, key) {
-                    const refFn = sourceMapping.registerToken(token);
-                    return (
-                      <span
-                        ref={refFn}
-                        data-token={JSON.stringify(token)}
-                        {...getTokenProps({ token, key })}
-                      />
-                    );
-                  })}
-                  {(sourceMapping.registerLineEnd(), null)}
-                </div>
-              ))}
-            </pre>
-          )
-        )}
-      </Highlight>
+      <SourceViewer code={inputCode} onChangeCode={setInputCode} />
     </div>
   );
 }
