@@ -1,0 +1,26 @@
+##################
+### Slow Tests ###
+##################
+
+# Comments start with `#`.
+# Paths are relative to the `test262/test` directory.
+# Paths may contain globs.
+
+built-ins/RegExp/character-class-escape-non-whitespace.js
+built-ins/RegExp/CharacterClassEscapes/character-class-non-digit-class-escape-flags-u.js
+built-ins/RegExp/CharacterClassEscapes/character-class-non-digit-class-escape-plus-quantifier-flags-u.js
+built-ins/RegExp/CharacterClassEscapes/character-class-non-whitespace-class-escape-flags-u.js
+built-ins/RegExp/CharacterClassEscapes/character-class-non-whitespace-class-escape-plus-quantifier-flags-u.js
+built-ins/RegExp/CharacterClassEscapes/character-class-non-word-class-escape-flags-u.js
+built-ins/RegExp/CharacterClassEscapes/character-class-non-word-class-escape-plus-quantifier-flags-u.js
+language/literals/regexp/S7.8.5_A1.1_T2.js
+language/literals/regexp/S7.8.5_A1.4_T2.js
+language/literals/regexp/S7.8.5_A2.1_T2.js
+language/literals/regexp/S7.8.5_A2.4_T2.js
+
+language/comments/S7.4_A5.js
+language/comments/S7.4_A6.js
+
+built-ins/{encode,decode}URI?(Component)/**/*.js
+
+built-ins/Function/prototype/toString/built-in-function-object.js
