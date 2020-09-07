@@ -80,27 +80,37 @@ export function* Evaluate(node) {
     surroundingAgent.hostDefinedOptions.onNodeEvaluation(node, surroundingAgent.currentRealmRecord);
   }
 
+  let result;
   switch (node.type) {
     // Language
     case 'Script':
-      return yield* Evaluate_Script(node);
+      result = yield* Evaluate_Script(node);
+      break;
     case 'ScriptBody':
-      return yield* Evaluate_ScriptBody(node);
+      result = yield* Evaluate_ScriptBody(node);
+      break;
     case 'Module':
-      return yield* Evaluate_Module(node);
+      result = yield* Evaluate_Module(node);
+      break;
     case 'ModuleBody':
-      return yield* Evaluate_ModuleBody(node);
+      result = yield* Evaluate_ModuleBody(node);
+      break;
     // Statements
     case 'Block':
-      return yield* Evaluate_Block(node);
+      result = yield* Evaluate_Block(node);
+      break;
     case 'VariableStatement':
-      return yield* Evaluate_VariableStatement(node);
+      result = yield* Evaluate_VariableStatement(node);
+      break;
     case 'EmptyStatement':
-      return Evaluate_EmptyStatement(node);
+      result = Evaluate_EmptyStatement(node);
+      break;
     case 'IfStatement':
-      return yield* Evaluate_IfStatement(node);
+      result = yield* Evaluate_IfStatement(node);
+      break;
     case 'ExpressionStatement':
-      return yield* Evaluate_ExpressionStatement(node);
+      result = yield* Evaluate_ExpressionStatement(node);
+      break;
     case 'WhileStatement':
     case 'DoWhileStatement':
     case 'SwitchStatement':
@@ -108,140 +118,209 @@ export function* Evaluate(node) {
     case 'ForInStatement':
     case 'ForOfStatement':
     case 'ForAwaitStatement':
-      return yield* Evaluate_BreakableStatement(node);
+      result = yield* Evaluate_BreakableStatement(node);
+      break;
     case 'ForBinding':
-      return Evaluate_ForBinding(node);
+      result = Evaluate_ForBinding(node);
+      break;
     case 'CaseClause':
     case 'DefaultClause':
-      return yield* Evaluate_CaseClause(node);
+      result = yield* Evaluate_CaseClause(node);
+      break;
     case 'BreakStatement':
-      return Evaluate_BreakStatement(node);
+      result = Evaluate_BreakStatement(node);
+      break;
     case 'ContinueStatement':
-      return Evaluate_ContinueStatement(node);
+      result = Evaluate_ContinueStatement(node);
+      break;
     case 'LabelledStatement':
-      return yield* Evaluate_LabelledStatement(node);
+      result = yield* Evaluate_LabelledStatement(node);
+      break;
     case 'ReturnStatement':
-      return yield* Evaluate_ReturnStatement(node);
+      result = yield* Evaluate_ReturnStatement(node);
+      break;
     case 'ThrowStatement':
-      return yield* Evaluate_ThrowStatement(node);
+      result = yield* Evaluate_ThrowStatement(node);
+      break;
     case 'TryStatement':
-      return yield* Evaluate_TryStatement(node);
+      result = yield* Evaluate_TryStatement(node);
+      break;
     case 'DebuggerStatement':
-      return Evaluate_DebuggerStatement(node);
+      result = Evaluate_DebuggerStatement(node);
+      break;
     case 'WithStatement':
-      return yield* Evaluate_WithStatement(node);
+      result = yield* Evaluate_WithStatement(node);
+      break;
     // Declarations
     case 'ImportDeclaration':
-      return Evaluate_ImportDeclaration(node);
+      result = Evaluate_ImportDeclaration(node);
+      break;
     case 'ExportDeclaration':
-      return yield* Evaluate_ExportDeclaration(node);
+      result = yield* Evaluate_ExportDeclaration(node);
+      break;
     case 'ClassDeclaration':
-      return yield* Evaluate_ClassDeclaration(node);
+      result = yield* Evaluate_ClassDeclaration(node);
+      break;
     case 'LexicalDeclaration':
-      return yield* Evaluate_LexicalDeclaration(node);
+      result = yield* Evaluate_LexicalDeclaration(node);
+      break;
     case 'FunctionDeclaration':
-      return Evaluate_FunctionDeclaration(node);
+      result = Evaluate_FunctionDeclaration(node);
+      break;
     case 'GeneratorDeclaration':
     case 'AsyncFunctionDeclaration':
     case 'AsyncGeneratorDeclaration':
-      return Evaluate_HoistableDeclaration(node);
+      result = Evaluate_HoistableDeclaration(node);
+      break;
     // Expressions
     case 'CommaOperator':
-      return yield* Evaluate_CommaOperator(node);
+      result = yield* Evaluate_CommaOperator(node);
+      break;
     case 'ThisExpression':
-      return Evaluate_This(node);
+      result = Evaluate_This(node);
+      break;
     case 'IdentifierReference':
-      return Evaluate_IdentifierReference(node);
+      result = Evaluate_IdentifierReference(node);
+      break;
     case 'NullLiteral':
     case 'BooleanLiteral':
     case 'NumericLiteral':
     case 'StringLiteral':
-      return Evaluate_Literal(node);
+      result = Evaluate_Literal(node);
+      break;
     case 'ArrayLiteral':
-      return yield* Evaluate_ArrayLiteral(node);
+      result = yield* Evaluate_ArrayLiteral(node);
+      break;
     case 'ObjectLiteral':
-      return yield* Evaluate_ObjectLiteral(node);
+      result = yield* Evaluate_ObjectLiteral(node);
+      break;
     case 'FunctionExpression':
-      return yield* Evaluate_FunctionExpression(node);
+      result = yield* Evaluate_FunctionExpression(node);
+      break;
     case 'ClassExpression':
-      return yield* Evaluate_ClassExpression(node);
+      result = yield* Evaluate_ClassExpression(node);
+      break;
     case 'GeneratorExpression':
-      return yield* Evaluate_GeneratorExpression(node);
+      result = yield* Evaluate_GeneratorExpression(node);
+      break;
     case 'AsyncFunctionExpression':
-      return yield* Evaluate_AsyncFunctionExpression(node);
+      result = yield* Evaluate_AsyncFunctionExpression(node);
+      break;
     case 'AsyncGeneratorExpression':
-      return yield* Evaluate_AsyncGeneratorExpression(node);
+      result = yield* Evaluate_AsyncGeneratorExpression(node);
+      break;
     case 'TemplateLiteral':
-      return yield* Evaluate_TemplateLiteral(node);
+      result = yield* Evaluate_TemplateLiteral(node);
+      break;
     case 'ParenthesizedExpression':
-      return yield* Evaluate_ParenthesizedExpression(node);
+      result = yield* Evaluate_ParenthesizedExpression(node);
+      break;
     case 'AdditiveExpression':
-      return yield* Evaluate_AdditiveExpression(node);
+      result = yield* Evaluate_AdditiveExpression(node);
+      break;
     case 'MultiplicativeExpression':
-      return yield* Evaluate_MultiplicativeExpression(node);
+      result = yield* Evaluate_MultiplicativeExpression(node);
+      break;
     case 'ExponentiationExpression':
-      return yield* Evaluate_ExponentiationExpression(node);
+      result = yield* Evaluate_ExponentiationExpression(node);
+      break;
     case 'UpdateExpression':
-      return yield* Evaluate_UpdateExpression(node);
+      result = yield* Evaluate_UpdateExpression(node);
+      break;
     case 'ShiftExpression':
-      return yield* Evaluate_ShiftExpression(node);
+      result = yield* Evaluate_ShiftExpression(node);
+      break;
     case 'LogicalORExpression':
-      return yield* Evaluate_LogicalORExpression(node);
+      result = yield* Evaluate_LogicalORExpression(node);
+      break;
     case 'LogicalANDExpression':
-      return yield* Evaluate_LogicalANDExpression(node);
+      result = yield* Evaluate_LogicalANDExpression(node);
+      break;
     case 'BitwiseANDExpression':
     case 'BitwiseXORExpression':
     case 'BitwiseORExpression':
-      return yield* Evaluate_BinaryBitwiseExpression(node);
+      result = yield* Evaluate_BinaryBitwiseExpression(node);
+      break;
     case 'RelationalExpression':
-      return yield* Evaluate_RelationalExpression(node);
+      result = yield* Evaluate_RelationalExpression(node);
+      break;
     case 'CoalesceExpression':
-      return yield* Evaluate_CoalesceExpression(node);
+      result = yield* Evaluate_CoalesceExpression(node);
+      break;
     case 'EqualityExpression':
-      return yield* Evaluate_EqualityExpression(node);
+      result = yield* Evaluate_EqualityExpression(node);
+      break;
     case 'CallExpression':
-      return yield* Evaluate_CallExpression(node);
+      result = yield* Evaluate_CallExpression(node);
+      break;
     case 'NewExpression':
-      return yield* Evaluate_NewExpression(node);
+      result = yield* Evaluate_NewExpression(node);
+      break;
     case 'MemberExpression':
-      return yield* Evaluate_MemberExpression(node);
+      result = yield* Evaluate_MemberExpression(node);
+      break;
     case 'OptionalExpression':
-      return yield* Evaluate_OptionalExpression(node);
+      result = yield* Evaluate_OptionalExpression(node);
+      break;
     case 'TaggedTemplateExpression':
-      return yield* Evaluate_TaggedTemplateExpression(node);
+      result = yield* Evaluate_TaggedTemplateExpression(node);
+      break;
     case 'SuperProperty':
-      return yield* Evaluate_SuperProperty(node);
+      result = yield* Evaluate_SuperProperty(node);
+      break;
     case 'SuperCall':
-      return yield* Evaluate_SuperCall(node);
+      result = yield* Evaluate_SuperCall(node);
+      break;
     case 'NewTarget':
-      return Evaluate_NewTarget(node);
+      result = Evaluate_NewTarget(node);
+      break;
     case 'ImportMeta':
-      return Evaluate_ImportMeta(node);
+      result = Evaluate_ImportMeta(node);
+      break;
     case 'ImportCall':
-      return yield* Evaluate_ImportCall(node);
+      result = yield* Evaluate_ImportCall(node);
+      break;
     case 'AssignmentExpression':
-      return yield* Evaluate_AssignmentExpression(node);
+      result = yield* Evaluate_AssignmentExpression(node);
+      break;
     case 'YieldExpression':
-      return yield* Evaluate_YieldExpression(node);
+      result = yield* Evaluate_YieldExpression(node);
+      break;
     case 'AwaitExpression':
-      return yield* Evaluate_AwaitExpression(node);
+      result = yield* Evaluate_AwaitExpression(node);
+      break;
     case 'UnaryExpression':
-      return yield* Evaluate_UnaryExpression(node);
+      result = yield* Evaluate_UnaryExpression(node);
+      break;
     case 'ArrowFunction':
-      return yield* Evaluate_ArrowFunction(node);
+      result = yield* Evaluate_ArrowFunction(node);
+      break;
     case 'AsyncArrowFunction':
-      return yield* Evaluate_AsyncArrowFunction(node);
+      result = yield* Evaluate_AsyncArrowFunction(node);
+      break;
     case 'ConditionalExpression':
-      return yield* Evaluate_ConditionalExpression(node);
+      result = yield* Evaluate_ConditionalExpression(node);
+      break;
     case 'RegularExpressionLiteral':
-      return Evaluate_RegularExpressionLiteral(node);
+      result = Evaluate_RegularExpressionLiteral(node);
+      break;
     case 'AsyncFunctionBody':
     case 'GeneratorBody':
     case 'AsyncGeneratorBody':
-      return yield* Evaluate_AnyFunctionBody(node);
+      result = yield* Evaluate_AnyFunctionBody(node);
+      break;
     case 'ExpressionBody':
-      return yield* Evaluate_ExpressionBody(node);
+      result = yield* Evaluate_ExpressionBody(node);
+      break;
     default:
       throw new OutOfRange('Evaluate', node);
   }
+
+  if (surroundingAgent.hostDefinedOptions.onNodeEvaluationComplete) {
+    surroundingAgent.hostDefinedOptions.onNodeEvaluationComplete(
+      { node, result },
+    );
+  }
+
+  return result;
 }
