@@ -17,6 +17,9 @@
     "tailwindcss": "^1.7.6",
     "typescript": "~3.7.2"
   },
+  "devDependencies": {
+    "acorn": "^7.4.0"
+  },
   "scripts": {
     "build:tailwind": "tailwindcss build src/tailwind.css -o src/tailwind.output.css",
     "prestart": "npm run build:tailwind",
