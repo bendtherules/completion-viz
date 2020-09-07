@@ -500,17 +500,30 @@ export function* Evaluate(Production) {
     surroundingAgent.hostDefinedOptions.onNodeEvaluation(Production, surroundingAgent.currentRealmRecord);
   }
 
+  let result;
   switch (true) {
     case isImportDeclaration(Production):
-      return new NormalCompletion(undefined);
+      result = new NormalCompletion(undefined);
+      break;
     case isExportDeclaration(Production):
-      return yield* Evaluate_ExportDeclaration(Production);
+      result = yield* Evaluate_ExportDeclaration(Production);
+      break;
     case isStatement(Production):
     case isDeclaration(Production):
-      return yield* Evaluate_Statement(Production);
+      result = yield* Evaluate_Statement(Production);
+      break;
     case isExpression(Production):
-      return yield* Evaluate_Expression(Production);
+      result = yield* Evaluate_Expression(Production);
+      break;
     default:
       throw new OutOfRange('Evaluate', Production);
   }
+
+  if (surroundingAgent.hostDefinedOptions.onNodeEvaluationComplete) {
+    surroundingAgent.hostDefinedOptions.onNodeEvaluationComplete(
+      { Production, Result: result },
+    );
+  }
+
+  return result;
 }
