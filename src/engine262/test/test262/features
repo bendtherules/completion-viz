@@ -1,0 +1,25 @@
+// blacklist
+
+Atomics
+Atomics.waitAsync
+
+caller
+
+SharedArrayBuffer
+
+tail-call-optimization
+
+u180e
+
+class-fields-public
+class-fields-private
+class-methods-private
+class-static-fields-public
+class-static-fields-private
+class-static-methods-private
+
+export-star-as-namespace-from-module
+
+hashbang
+
+numeric-separator-literal
