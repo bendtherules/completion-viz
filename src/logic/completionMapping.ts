@@ -1,5 +1,5 @@
 import { Node } from "acorn";
-import { inspect } from "../../engine262/dist/engine262";
+import { inspect } from "../engine262/dist/engine262";
 
 import { CompletionRecord, CompletionTypes } from "../types/engine262-stubs";
 
@@ -7,7 +7,7 @@ export interface ICompletionDetail {
   start: number;
   end: number;
   completionType: CompletionTypes;
-  completionValueString: string;
+  completionValueString: string | undefined;
   completionTargetString: string | undefined;
   completionValue: any;
 }
@@ -26,7 +26,8 @@ export const completionMapping: {
       Target: completionTarget,
     } = result;
 
-    const completionValueString: string = inspect(completionValue);
+    const completionValueString: string | undefined =
+      completionValue !== undefined ? inspect(completionValue) : undefined;
     const completionTargetString: string | undefined =
       completionTarget !== undefined
         ? inspect(completionTarget)

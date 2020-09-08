@@ -14,13 +14,16 @@ World!\`; abc()`;
 function App() {
   const [inputCode, setInputCode] = useState<string>(sampleInputCode);
 
-  useLayoutEffect(() => {
-    runEngine(inputCode);
-  }, [inputCode]);
+  // useLayoutEffect(() => {
+  runEngine(inputCode);
+  // }, [inputCode]);
 
   return (
     <div>
       <SourceViewer code={inputCode} onChangeCode={setInputCode} />
+      <CompletionViewer
+        completionDetails={completionMapping.completionDetails}
+      />
     </div>
   );
 }
