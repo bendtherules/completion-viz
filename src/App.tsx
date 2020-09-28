@@ -21,11 +21,11 @@ function App() {
   // }, [inputCode]);
 
   return (
-    <div className="flex flex-col justify-between md:flex-row">
-      <div className="flex-1 max-w-half">
+    <div className="flex flex-col justify-center md:flex-row">
+      <div className="flex-1 max-w-half md:max-w-xl">
         <SourceViewer code={inputCode} onChangeCode={setInputCode} />
       </div>
-      <div className="flex-1 max-w-half">
+      <div className="flex-1 max-w-half md:max-w-xl">
         {/* Separator */}
         {/* <div className="w-2 mx-1 bg-gray-800"></div> */}
         <CompletionViewer
