@@ -2,7 +2,7 @@ import React from "react";
 import { ICompletionDetail } from "../../logic/completionMapping";
 import { TSourceMapping } from "../../logic/sourceMapping";
 
-import { CompletionCard } from "../CompletionCard";
+import { CompletionCardFull } from "../CompletionCard";
 
 export function CompletionViewer(props: {
   code: string;
@@ -21,10 +21,10 @@ export function CompletionViewer(props: {
       <div className="ml-1 mr-1">
         {completionDetails.map((tmpCompletion) => (
           // Card for each completion record
-          <CompletionCard
+          <CompletionCardFull
             completionDetail={tmpCompletion}
             code={code}
-          ></CompletionCard>
+          ></CompletionCardFull>
         ))}
       </div>
     </div>

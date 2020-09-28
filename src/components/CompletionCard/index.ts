@@ -1,3 +1,3 @@
-import { CompletionCard } from "./CompletionCard";
+import { CompletionCardFull } from "./CompletionCard";
 
-export { CompletionCard };
+export { CompletionCardFull };
