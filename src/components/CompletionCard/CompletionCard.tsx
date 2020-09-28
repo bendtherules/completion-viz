@@ -1,6 +1,5 @@
 import React from "react";
 import { ICompletionDetail } from "../../logic/completionMapping";
-import { TSourceMapping } from "../../logic/sourceMapping";
 import { CompletionTypes } from "../../types/engine262-stubs";
 
 import { InlineResultViewer } from "../InlineResultViewer";
@@ -52,14 +51,26 @@ export function CompletionCard(props: ICompletionCardProps) {
         </div>
       </div>
       <div className="">
-        <div className="my-1">From source ⤵️ </div>
+        <div className="my-1">
+          From source&nbsp;
+          <span role="img" aria-label="See below">
+            ⤵️
+          </span>
+          &nbsp;
+        </div>
         <InlineResultViewer
           className="px-1 py-1 my-1 rounded md:w-fit-content"
           code={getCodeTextFromCompletion(code, completionDetail)}
         />
       </div>
       <div className="">
-        <div className="my-1">Full completion record ⤵️ </div>
+        <div className="my-1">
+          Full completion record&nbsp;
+          <span role="img" aria-label="See below">
+            ⤵️
+          </span>
+          &nbsp;
+        </div>
         <table className="border border-gray-800">
           <tr className="border-b border-gray-800">
             <td className="p-1 border-r border-gray-800">[[Type]]</td>
