@@ -21,10 +21,14 @@
     "tailwindcss": "^1.7.6"
   },
   "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "@commitlint/prompt-cli": "^11.0.0",
     "acorn": "^7.4.0",
     "typescript": "~3.7.2"
   },
   "scripts": {
+    "commit": "commit",
     "build:tailwind": "tailwindcss build src/tailwind.css -o src/tailwind.output.css",
     "prestart": "npm run build:tailwind",
     "prebuild": "npm run build:tailwind",
@@ -43,7 +47,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "lint-staged": {
