@@ -32,7 +32,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint --ext js,jsx,ts,tsx src"
+    "lint": "eslint --ext js,jsx,ts,tsx src",
+    "prettier": "prettier -l",
+    "prettier-fix-all": "prettier --write --ignore-unknown ./"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -44,7 +46,8 @@
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
-      "prettier -l"
+      "npm run lint",
+      "npm run prettier"
     ]
   },
   "browserslist": {
