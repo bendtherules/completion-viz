@@ -1,12 +1,12 @@
 import { Token } from "../types/prism-types";
 
-interface TMappingELement {
+export interface TMappingELement {
   start: number;
   end: number;
   ref: { current: HTMLElement | null };
 }
 
-interface TSourceMapping {
+export interface TSourceMapping {
   mappingArray: Array<TMappingELement>;
   lastEnd: number;
   registerToken(t: Token): (ele: HTMLElement | null) => void;
