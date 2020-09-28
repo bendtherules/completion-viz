@@ -1,0 +1,13 @@
+src/engine262
+src/tailwind.output.css
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
