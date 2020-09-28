@@ -28,7 +28,6 @@ export const sourceMapping: TSourceMapping = {
     this.lastEnd = this.mappingArray[this.mappingArray.length - 1].end;
 
     console.log(obj, t);
-    
 
     return function updateHTMLElement(ele) {
       obj.ref.current = ele;

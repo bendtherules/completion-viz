@@ -20,7 +20,10 @@ export function SourceViewer(props: ISourceViewerProps) {
           // eslint-disable-next-line no-sequences
           sourceMapping.reset(),
           (
-            <pre className={`${className} px-4 py-2 overflow-auto`} style={style}>
+            <pre
+              className={`${className} px-4 py-2 overflow-auto`}
+              style={style}
+            >
               {tokens.map((line, i) => (
                 <div {...getLineProps({ line, key: i })}>
                   {line.map(function (token, key) {

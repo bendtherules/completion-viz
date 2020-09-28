@@ -5,7 +5,7 @@ import {
   Abstract,
   Value,
   inspect,
-  Completion
+  Completion,
 } from "../engine262/dist/engine262";
 
 import { CompletionRecord } from "../types/engine262-stubs";

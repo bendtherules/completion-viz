@@ -32,7 +32,7 @@ export interface ICompletionCardProps {
 
 export function CompletionCard(props: ICompletionCardProps) {
   const { completionDetail, code } = props;
-  
+
   // TODO: have diff version to be shown as tooltip over source code
   return (
     <div
