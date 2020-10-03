@@ -23,7 +23,6 @@ export function runEngine(code: string) {
       Result: CompletionRecord;
     }) {
       if (result instanceof Completion) {
-        console.log({ node, result });
         completionMapping.addCompletion({ node, result });
       }
     },
