@@ -1,3 +1,4 @@
 {
-  "zenMode.fullScreen": false
+  "zenMode.fullScreen": false,
+  "zenMode.centerLayout": false
 }
