@@ -19,9 +19,10 @@ export function CompletionViewer(props: {
       <div className="px-4 py-1 bg-gray-200 ">Completion Records</div>
       {/* Completion list */}
       <div className="ml-1 mr-1">
-        {completionDetails.map((tmpCompletion) => (
+        {completionDetails.map((tmpCompletion, index) => (
           // Card for each completion record
           <CompletionCardFull
+            key={index}
             completionDetail={tmpCompletion}
             code={code}
           ></CompletionCardFull>
