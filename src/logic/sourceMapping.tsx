@@ -1,6 +1,7 @@
 import { Token } from "../types/prism-types";
 
 export interface TMappingELement {
+  token: Token;
   start: number;
   end: number;
   ref: { current: HTMLElement | null };
@@ -20,14 +21,13 @@ export const sourceMapping: TSourceMapping = {
   lastEnd: 0,
   registerToken(t: Token) {
     const obj: TMappingELement = {
+      token: t,
       start: this.lastEnd,
       end: this.lastEnd + t.content.length,
       ref: { current: null },
     };
     this.mappingArray.push(obj);
     this.lastEnd = this.mappingArray[this.mappingArray.length - 1].end;
-
-    console.log(obj, t);
 
     return function updateHTMLElement(ele) {
       obj.ref.current = ele;
