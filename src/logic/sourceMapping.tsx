@@ -1,3 +1,4 @@
+import { createContext, useContext } from "react";
 import { Token } from "../types/prism-types";
 
 export interface TMappingELement {
@@ -46,4 +47,13 @@ export const sourceMapping: TSourceMapping = {
   getElementsInRange(start, end) {
     return [];
   },
+};
+
+export const SourceMappingContext = createContext(sourceMapping);
+
+// Context consumer
+export const useSourceMapping = () => {
+  const value = useContext(SourceMappingContext);
+
+  return value;
 };

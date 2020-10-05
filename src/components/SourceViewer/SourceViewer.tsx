@@ -10,12 +10,14 @@ import {
 
 import { sourceMapping } from "../../logic/sourceMapping";
 import {
-  completionMapping,
+  useCompletionMapping,
   ICompletionDetail,
+  ICompletionMapping,
 } from "../../logic/completionMapping";
 
 function getCompletionFromSourceToken(
-  matcheeToken: Token
+  matcheeToken: Token,
+  completionMapping: ICompletionMapping
 ): ICompletionDetail | null {
   const matchingSourceDetails = sourceMapping.mappingArray.find(
     ({ token: tmpToken }) => matcheeToken === tmpToken
@@ -120,13 +122,18 @@ function TokenRenderer({
   isLastTokenInLine,
   getTokenProps,
 }: ITokenRendererProps) {
+  const completionMapping = useCompletionMapping();
+
   const refFn = sourceMapping.registerToken(token);
   if (isLastTokenInLine) {
     sourceMapping.registerLineEnd();
   }
 
   const onClickToken = (tmpToken: Token) => {
-    const matchingCompletion = getCompletionFromSourceToken(tmpToken);
+    const matchingCompletion = getCompletionFromSourceToken(
+      tmpToken,
+      completionMapping
+    );
     if (matchingCompletion !== null) {
       console.log(
         `Clicked: ${tmpToken.content} => Completion (${matchingCompletion.completionType},${matchingCompletion.completionValueString})`

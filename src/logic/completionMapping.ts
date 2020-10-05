@@ -1,3 +1,4 @@
+import { createContext, useContext } from "react";
 import { Node } from "acorn";
 import { inspect } from "../engine262/dist/engine262";
 
@@ -12,11 +13,13 @@ export interface ICompletionDetail {
   completionValue: any;
 }
 
-export const completionMapping: {
+export interface ICompletionMapping {
   completionDetails: ICompletionDetail[];
   addCompletion(_: { node: Node; result: CompletionRecord }): void;
   reset(): void;
-} = {
+}
+
+export const completionMapping: ICompletionMapping = {
   completionDetails: [],
   addCompletion({ node, result }) {
     const { start, end } = node;
@@ -47,4 +50,13 @@ export const completionMapping: {
   reset() {
     this.completionDetails = [];
   },
+};
+
+export const CompletionMappingContext = createContext(completionMapping);
+
+// Context consumer
+export const useCompletionMapping = () => {
+  const value = useContext(CompletionMappingContext);
+
+  return value;
 };
