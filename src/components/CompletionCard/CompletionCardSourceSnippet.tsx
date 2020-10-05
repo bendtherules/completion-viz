@@ -31,7 +31,7 @@ export function CompletionCardSourceSnippet() {
     <div className={parentClassname}>
       <div className="my-1">From source&nbsp;{directionEmojiJSX}&nbsp;</div>
       <InlineResultViewer
-        className={`px-1 my-1 rounded md:w-fit-content ${inlineCodeExtraClassName}`}
+        className={`px-1 my-1 rounded ${inlineCodeExtraClassName}`}
         code={relatedCode}
       />
     </div>

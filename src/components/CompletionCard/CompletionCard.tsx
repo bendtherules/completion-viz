@@ -21,7 +21,7 @@ export function CompletionCardFull(props: ICompletionCardProps) {
   return (
     <CompletionCardContext.Provider value={{ completionDetail, code }}>
       <div
-        className={`px-4 py-1 my-1 rounded-md ${getCompletionClassname(
+        className={`px-4 py-2 my-1 rounded-md ${getCompletionClassname(
           completionDetail
         )}`}
       >
