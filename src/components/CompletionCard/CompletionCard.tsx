@@ -11,12 +11,40 @@ import { CompletionCardSummary } from "./CompletionCardSummary";
 export interface ICompletionCardProps {
   completionDetail: ICompletionDetail;
   code: string;
+  showSourceInitial: boolean;
+  showFullRecordInitial: boolean;
 }
 
 // TODO: have diff version to be shown as tooltip over source code
 
 export function CompletionCardFull(props: ICompletionCardProps) {
-  const { completionDetail, code } = props;
+  const {
+    completionDetail,
+    code,
+    showSourceInitial,
+    showFullRecordInitial,
+  } = props;
+
+  function renderSnippetAndFullRecord() {
+    if (showSourceInitial && !showFullRecordInitial) {
+      return <CompletionCardSourceSnippet />;
+    } else if (showFullRecordInitial && !showSourceInitial) {
+      return <CompletionCardFullRecord />;
+    } else if (showFullRecordInitial && showSourceInitial) {
+      return (
+        <div className="flex flex-row gap-x-4">
+          <div className="flex-1 max-w-half">
+            <CompletionCardSourceSnippet />
+          </div>
+          <div className="flex-1 max-w-half">
+            <CompletionCardFullRecord />
+          </div>
+        </div>
+      );
+    }
+
+    return null;
+  }
 
   return (
     <CompletionCardContext.Provider value={{ completionDetail, code }}>
@@ -26,9 +54,13 @@ export function CompletionCardFull(props: ICompletionCardProps) {
         )}`}
       >
         <CompletionCardSummary />
-        <CompletionCardSourceSnippet />
-        <CompletionCardFullRecord />
+        {renderSnippetAndFullRecord()}
       </div>
     </CompletionCardContext.Provider>
   );
 }
+
+CompletionCardFull.defaultProps = {
+  showSourceInitial: true,
+  showFullRecordInitial: false,
+};
