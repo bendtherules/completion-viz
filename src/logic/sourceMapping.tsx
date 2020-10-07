@@ -17,7 +17,7 @@ export interface TSourceMapping {
   getElementsInRange(start: number, end: number): HTMLElement[];
 }
 
-export const sourceMapping: TSourceMapping = {
+const sourceMapping: TSourceMapping = {
   mappingArray: [],
   lastEnd: 0,
   registerToken(t: Token) {

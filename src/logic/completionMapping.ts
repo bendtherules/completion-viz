@@ -13,13 +13,13 @@ export interface ICompletionDetail {
   completionValue: any;
 }
 
-export interface ICompletionMapping {
+export interface TCompletionMapping {
   completionDetails: ICompletionDetail[];
   addCompletion(_: { node: Node; result: CompletionRecord }): void;
   reset(): void;
 }
 
-export const completionMapping: ICompletionMapping = {
+const completionMapping: TCompletionMapping = {
   completionDetails: [],
   addCompletion({ node, result }) {
     const { start, end } = node;

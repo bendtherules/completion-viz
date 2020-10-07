@@ -3,8 +3,7 @@ import React, { useState } from "react";
 import { SourceViewer } from "./components/SourceViewer";
 import { CompletionViewer } from "./components/CompletionViewer";
 
-import { completionMapping } from "./logic/completionMapping";
-import { sourceMapping } from "./logic/sourceMapping";
+import { useCompletionMapping } from "./logic/completionMapping";
 import { runEngine } from "./logic/runEngine";
 
 import "./tailwind.output.css";
@@ -15,6 +14,7 @@ World!\`; abc()`;
 
 function App() {
   const [inputCode, setInputCode] = useState<string>(sampleInputCode);
+  const completionMapping = useCompletionMapping();
 
   // useLayoutEffect(() => {
   runEngine(inputCode);
@@ -31,7 +31,6 @@ function App() {
         <CompletionViewer
           code={inputCode}
           completionDetails={completionMapping.completionDetails}
-          sourceMapping={sourceMapping}
         />
       </div>
     </div>

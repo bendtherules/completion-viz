@@ -1,17 +1,13 @@
 import React from "react";
 import { ICompletionDetail } from "../../logic/completionMapping";
-import { TSourceMapping } from "../../logic/sourceMapping";
 
 import { CompletionCardFull } from "../CompletionCard";
 
 export function CompletionViewer(props: {
   code: string;
   completionDetails: ICompletionDetail[];
-  sourceMapping: TSourceMapping;
 }) {
   const { code, completionDetails } = props;
-
-  // function renderCompletionResult(inputCompletion: ICompletionDetail) {}
 
   return (
     <div className="">

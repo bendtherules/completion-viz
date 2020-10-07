@@ -8,16 +8,17 @@ import {
   Token,
 } from "../../types/prism-types";
 
-import { sourceMapping } from "../../logic/sourceMapping";
+import { TSourceMapping, useSourceMapping } from "../../logic/sourceMapping";
 import {
   useCompletionMapping,
   ICompletionDetail,
-  ICompletionMapping,
+  TCompletionMapping,
 } from "../../logic/completionMapping";
 
 function getCompletionFromSourceToken(
   matcheeToken: Token,
-  completionMapping: ICompletionMapping
+  completionMapping: TCompletionMapping,
+  sourceMapping: TSourceMapping
 ): ICompletionDetail | null {
   const matchingSourceDetails = sourceMapping.mappingArray.find(
     ({ token: tmpToken }) => matcheeToken === tmpToken
@@ -72,7 +73,9 @@ function PreRenderer({
   getLineProps,
   getTokenProps,
 }: IPreRendererProps) {
+  const sourceMapping = useSourceMapping();
   sourceMapping.reset();
+
   return (
     <pre className={`${className} px-4 py-2 overflow-auto`} style={style}>
       {tokens.map((line, i) => (
@@ -123,6 +126,7 @@ function TokenRenderer({
   getTokenProps,
 }: ITokenRendererProps) {
   const completionMapping = useCompletionMapping();
+  const sourceMapping = useSourceMapping();
 
   const refFn = sourceMapping.registerToken(token);
   if (isLastTokenInLine) {
@@ -132,7 +136,8 @@ function TokenRenderer({
   const onClickToken = (tmpToken: Token) => {
     const matchingCompletion = getCompletionFromSourceToken(
       tmpToken,
-      completionMapping
+      completionMapping,
+      sourceMapping
     );
     if (matchingCompletion !== null) {
       console.log(
